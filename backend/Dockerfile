@@ -1,8 +1,8 @@
 # BASE
-FROM python:3.12.2-bullseye as base
+FROM python:3.12.2-bullseye AS base
 
 # DEVELOPMENT
-FROM base as development
+FROM base AS development
 ENV \
     PIP_NO_CACHE_DIR=off \
     PIP_DISABLE_PIP_VERSION_CHECK=on \
@@ -32,7 +32,7 @@ WORKDIR /code/
 
 
 # BUILDER
-FROM development as builder
+FROM development AS builder
 WORKDIR /code/
 COPY . . 
 RUN poetry install --without dev
@@ -40,7 +40,7 @@ RUN poetry install --without dev
 RUN poetry build --format wheel
 
 # PRODUCTION
-FROM base as production
+FROM base AS production
 WORKDIR /code/ 
 COPY --from=builder /code/dist/*.whl ./
 RUN pip install ./*.whl
