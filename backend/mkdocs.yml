@@ -1,0 +1,93 @@
+site_name: FastCourse Documentation
+site_description: An asyncio-based Fast LMS that focuses on modularity and maintainability.
+site_author: Matin Moharami
+repo_url: https://github.com/mteen1/FastCourse
+site_url: https://Moharami.vip
+site_author: Matin Moharami
+repo_name: mteen1/FastCourse
+copyright: Maintained by <a href="https://moharami.vip">Matin Moharami</a>.
+
+theme:
+  name: "material"
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: blue grey
+      accent: indigo
+      toggle:
+        icon: material/lightbulb-outline
+        name: "Switch to dark mode"
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: blue grey
+      accent: indigo
+      toggle:
+        icon: material/lightbulb
+        name: "Switch to light mode"
+  features:
+    - content.code.annotate
+    - content.tabs.link
+    - content.code.copy
+    - announce.dismiss
+    - navigation.tabs
+    - search.suggest
+    - search.highlight
+  # logo: assets/logo-white.svg
+  #favicon: assets/favicon.png
+
+edit_uri: ""
+
+# https://www.mkdocs.org/user-guide/configuration/#validation
+validation:
+  omitted_files: warn
+  absolute_links: warn
+  unrecognized_links: warn
+
+extra_css:
+  - "extra/tweaks.css"
+
+markdown_extensions:
+  - toc:
+      permalink: true
+  - admonition
+  - pymdownx.details
+  - pymdownx.extra
+  - pymdownx.superfences
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - attr_list
+  - md_in_html
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+
+watch:
+  - src
+plugins:
+  - search:
+  - mkdocstrings:
+      handlers:
+        python:
+          paths:
+            - src
+          options:
+            members_order: source
+            separate_signature: true
+            docstring_options:
+              ignore_init_summary: true
+            merge_init_into_class: true
+            show_signature_annotations: true
+            signature_crossrefs: true
+
+  - mkdocs-simple-hooks:
+      hooks:
+        on_pre_build: "docs.plugins:on_pre_build"
+        on_files: "docs.plugins:on_files"
+        on_page_markdown: "docs.plugins:on_page_markdown"
+
+nav:
+  - Documentation:
+    - Usage: "index.md"
+    - API: "api.md"
